@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <BeforeMidlCompileTargets>
+        $(BeforeMidlCompileTargets);
+        Demo
+    </BeforeMidlCompileTargets>
+  </PropertyGroup>
+
+    <UsingTask TaskName="HelloWorld" TaskFactory="RoslynCodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
+        <ParameterGroup />
+        <Task>
+          <Reference Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\PresentationFramework.dll"/>
+          <Reference Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\PresentationCore.dll"/>
+          <Reference Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.Xml.dll"/>
+          <Reference Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.Xaml.dll"/>
+          <Reference Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\WindowsBase.dll"/>
+          
+          <Using Namespace="System" />
+          <Using Namespace="System.IO" />
+          <Using Namespace="System.Xml"/>
+          <Using Namespace="System.Threading"/>
+          <Using Namespace="System.Windows.Markup"/>
+          <Using Namespace="System.Windows"/>
+          <Code Type="Fragment" Language="cs"><![CDATA[
+      // Display "Hello, world!"
+      static string GetXml()
+      {
+          return "<?xml version=\"1.0\" encoding=\"utf-8\" ?>"
+              + "<Window "
+              + "xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\""
+              + " Title=\"Main Window in Markup Only\" "
+              + " Height=\"300\" Width=\"300\">"
+              + " <Button>Click me</Button>"
+              + " </Window>";
+      }
+      static void WpfMain()
+      {
+        var str = GetXml();
+        var window = XamlReader.Load(new MemoryStream(Encoding.UTF8.GetBytes(str))) as Window;
+        window.ShowDialog();
+      }
+      var thread = new Thread(WpfMain);
+      thread.ApartmentState = ApartmentState.STA;
+      thread.Start();
+      ]]></Code>
+        </Task>
+      </UsingTask>
+    
+      <Target Name="Demo">
+        <HelloWorld/>
+      </Target>
+</Project>
