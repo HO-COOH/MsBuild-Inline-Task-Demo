@@ -43,4 +43,5 @@ The real usage is to modify stuff with C# code during build process.
 
 ## Result
 Open a `Developer Powershell`, run `msbuild.exe`, and you shall see this.
+![image](https://github.com/HO-COOH/MsBuild-Inline-Task-Demo/assets/42881734/bf728bc8-b6a7-45b0-b452-94601f7be8e6)
 
