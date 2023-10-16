@@ -1,8 +1,9 @@
 # MSBuild Inline Task demo
 This demo shows how to display a WPF window using `MSBuild` files only.
-The real usage is to modify stuff with C# code during build process.
+The real usage is to modify stuff with C# code during build process, which you can utilize from a nuget library that you automatically modify something in the consuming project after installing it.
 
 ## How?
+### Using directly in build file (`csproj` / `vcxproj`)
 - Define a `UsingTask` to a `.target` or `.vcxproj` or `.csproj` file
 ```xml
 <!--TaskName be your arbitary name-->
@@ -39,9 +40,18 @@ The real usage is to modify stuff with C# code during build process.
     </BeforeMidlCompileTargets>
 </PropertyGroup>
 ```
-
+### Using with `.target` file
+Just add a `<Import Project="<Your .target file>" />` node as a child of the `<ImportGroup Label="ExtensionTargets">` (which will be automatically added if there is one in your nuget package).
+```xml
+<ImportGroup Label="ExtensionTargets">
+    <Import Project="Me.target"/>
+</ImportGroup>
+```
 
 ## Result
 Open a `Developer Powershell`, run `msbuild.exe`, and you shall see this.
 ![image](https://github.com/HO-COOH/MsBuild-Inline-Task-Demo/assets/42881734/bf728bc8-b6a7-45b0-b452-94601f7be8e6)
 
+## More info
+- [msbuild file schema](https://learn.microsoft.com/en-us/visualstudio/msbuild/msbuild-project-file-schema-reference?view=vs-2022)
+- [The very hard to find msbuild api doc](https://learn.microsoft.com/en-us/dotnet/api/?view=msbuild-17-netcore)
