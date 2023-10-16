@@ -4,7 +4,7 @@ The real usage is to modify stuff with C# code during build process, which you c
 
 ## How?
 ### Using directly in build file (`csproj` / `vcxproj`)
-- Define a `UsingTask` to a `.target` or `.vcxproj` or `.csproj` file
+- Define a `UsingTask` to a `.targets` or `.vcxproj` or `.csproj` file
 ```xml
 <!--TaskName be your arbitary name-->
 <UsingTask TaskName="HelloWorld" TaskFactory="RoslynCodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.Core.dll">
@@ -40,11 +40,11 @@ The real usage is to modify stuff with C# code during build process, which you c
     </BeforeMidlCompileTargets>
 </PropertyGroup>
 ```
-### Using with `.target` file
-Just add a `<Import Project="<Your .target file>" />` node as a child of the `<ImportGroup Label="ExtensionTargets">` (which will be automatically added if there is one in your nuget package).
+### Using with `.targets` file
+Just add a `<Import Project="<Your .targets file>" />` node as a child of the `<ImportGroup Label="ExtensionTargets">` (which will be automatically added if there is one in your nuget package).
 ```xml
 <ImportGroup Label="ExtensionTargets">
-    <Import Project="Me.target"/>
+    <Import Project="Me.targets"/>
 </ImportGroup>
 ```
 
